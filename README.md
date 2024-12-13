@@ -46,5 +46,5 @@ Dự án này được phát triển bởi Nhóm 7 - môn Phát Triển Tích H�
 
 ## 🤝 Thành viên nhóm
 
-Nguyễn Lê Phương Linh - 22014068
-Nghiêm Diệu Linh - 22014066
+- Nguyễn Lê Phương Linh - 22014068
+- Nghiêm Diệu Linh - 22014066
