@@ -1,67 +1,50 @@
-# 🎓 N04-PTTKPM-Nhóm-7  
-## **STUDY-BUDDY**  
-Ứng dụng **Study Buddy** là một giải pháp toàn diện được thiết kế nhằm hỗ trợ học sinh, sinh viên quản lý hành trình học tập của mình một cách hiệu quả.  
-Bằng cách tích hợp các tính năng:  
-- Lập kế hoạch học tập.  
-- Quản lý thời gian.  
-- Tính điểm trung bình (GPA).  
-- Cảnh báo thông minh.  
+# README
 
-Ứng dụng hướng đến việc giúp người dùng tối ưu hóa quá trình học tập và đạt được thành tích tốt nhất.  
+## 1. Mô tả khái quát về nội dung đề tài
 
----
+Dự án này được phát triển bởi Nhóm 7 - môn Phát Triển Tích Hợp Phần Mềm (PTTKPM). Đề tài tập trung vào việc xây dựng một hệ thống ứng dụng phần mềm nhằm giải quyết một vấn đề thực tế cụ thể (ví dụ: quản lý, thương mại điện tử, giáo dục, y tế, hoặc các lĩnh vực khác).
 
-## 🔍 **Tính sử dụng**  
-**Study Buddy** được thiết kế với giao diện thân thiện, trực quan, phù hợp với mọi cấp độ người dùng. Các tính năng chính bao gồm:  
+🎯 **Mục tiêu chính:** Tạo ra một giải pháp hiệu quả, dễ sử dụng và có khả năng tích hợp cao với các công nghệ hiện đại để nâng cao hiệu suất công việc hoặc trải nghiệm người dùng.
 
-### 📅 **Lập kế hoạch học tập**  
-- Tạo, sửa và quản lý lịch học cá nhân theo ngày, tuần, hoặc tháng.  
+## 2. Yêu cầu tổ chức chương trình chính
 
-### ⏰ **Quản lý thời gian**  
-- Hỗ trợ hẹn giờ và nhắc nhở thông qua thông báo đẩy (push notifications).  
-- Gợi ý phân bổ thời gian học tập dựa trên mục tiêu cá nhân và thời gian rảnh.  
+### 🛠️ Công nghệ:
 
-### 📊 **Tính GPA**  
-- Tự động tính toán GPA dựa trên điểm số của từng môn học.  
-- Hiển thị kết quả trực quan dưới dạng biểu đồ hoặc bảng để người dùng dễ theo dõi tiến độ.  
+- **Ngôn ngữ lập trình:** JavaScript, HTML, CSS
+- **Cơ sở dữ liệu:** MySQL.
+- **Công cụ phát triển:** Visual Studio Code, GitHub.
+- **Quản lý dự án:** Excel
 
-### 🔔 **Thông báo kịp thời**  
-- Cảnh báo sớm về các sự kiện quan trọng, hạn nộp bài tập hoặc kỳ thi.  
+### ⚙️ Chức năng chính:
 
----
+1. **🔑 Đăng nhập/Đăng ký:** Hỗ trợ người dùng truy cập hệ thống.
+2. **📅 Thời gian biểu:** Cung cấp lịch trình cá nhân, hỗ trợ quản lý công việc và học tập hiệu quả.
+3. **📊 Quản lý GPA:** Theo dõi và phân tích điểm số, hỗ trợ học viên cải thiện kết quả học tập.
+4. **🔔 Thông báo:** Gửi thông báo theo thời gian thực, đảm bảo người dùng luôn được cập nhật thông tin.
+5. **🎨 Giao diện thân thiện:** Thiết kế UI/UX trực quan, dễ sử dụng trên cả thiết bị di động và máy tính.
 
-## 🚀 **Áp dụng**  
-**Study Buddy** được phát triển để phục vụ nhiều mục đích trong học tập, bao gồm:  
+## 3. Tính sử dụng, áp dụng và các thành phần người dùng
 
-1. **Cá nhân hóa việc học tập:**  
-   - Tùy chỉnh kế hoạch và gợi ý học tập phù hợp với từng cá nhân.  
+### 🤝 Tính sử dụng:
 
-2. **Theo dõi tiến trình:**  
-   - Người dùng có thể theo dõi sự cải thiện trong GPA hoặc hiệu suất học tập theo thời gian.  
+- Được thiết kế để tự động hóa và nâng cao hiệu quả công việc hoặc học tập.
+- Cung cấp thông tin theo thời gian thực và hỗ trợ người dùng ra quyết định tốt hơn.
+- Dễ dàng tích hợp với các hệ thống hiện có, đảm bảo sự tương thích và mở rộng.
 
-3. **Đặt mục tiêu:**
-  - Hệ thống cho phép người dùng đặt mục tiêu, 
----
+### 👥 Thành phần người dùng:
 
-## 👤 **Thành phần người dùng**  
-Ứng dụng **Study Buddy** hướng đến các nhóm người dùng chính:  
+1. **👨‍💼 Người quản trị:** Quản lý toàn bộ hệ thống, bao gồm người dùng, dữ liệu, và các cài đặt.
+2. **👩‍💻 Người dùng:** Sử dụng các tính năng chính của hệ thống.
 
-1. **Học sinh các cấp (6-18 tuổi):**  
-   - Quản lý bài tập và ôn luyện cho các kỳ thi quan trọng như thi đại học.  
-   - Thiết lập thói quen học tập kỷ luật và tổ chức.  
+## 4. Kết quả dự kiến/mong muốn
 
-2. **Sinh viên đại học (18-24 tuổi):**  
-   - Quản lý lịch học, hoạt động ngoại khóa và công việc cá nhân.  
-   - Tích hợp tính toán GPA giúp sinh viên theo dõi kết quả học tập dễ dàng hơn.  
+- 🏗️ Xây dựng một hệ thống hoàn chỉnh, hoạt động ổn định, bảo mật và dễ dàng bảo trì.
+- 🔄 Tích hợp thành công các công nghệ đã chọn với các chức năng như quản lý, thống kê, báo cáo.
+- 🚀 Hỗ trợ ít nhất 100 người dùng đồng thời mà không gặp vấn đề về hiệu năng.
+- 💡 Giao diện thân thiện, trực quan, được người dùng đánh giá cao.
+- 🔧 Hệ thống có khả năng mở rộng trong tương lai, đáp ứng các nhu cầu mới.
 
-3. **Người đi làm học thêm (25-40 tuổi):**  
-   - Phù hợp với những người đi làm muốn nâng cao kỹ năng hoặc đạt chứng chỉ mới.  
+## 🤝 Thành viên nhóm
 
-4. **Giáo viên hoặc phụ huynh:**  
-   - Giám sát tiến trình học tập của học sinh/sinh viên và hỗ trợ trong việc lập kế hoạch học tập.  
-
----
-
-## 🤝 **Thành viên nhóm**  
-- **Nguyễn Lê Phương Linh** - 22014068  
-- **Nghiêm Diệu Linh** - 22014066  
+Nguyễn Lê Phương Linh - 22014068
+Nghiêm Diệu Linh - 22014066
