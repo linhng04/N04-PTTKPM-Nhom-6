@@ -1,4 +1,4 @@
-# README
+# Phân tích và thết kế ứng dụng quản lý lịch trình học tập Study Buddy trên nền Web
 
 ## 1. Mô tả khái quát về nội dung đề tài
 
