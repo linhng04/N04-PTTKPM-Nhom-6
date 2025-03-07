@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +7,6 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: url('/static/image/bg3.jpg') no-repeat center center fixed;
     background-size: cover;
     display: flex;
     background-color: #F0F0F0;
@@ -18,6 +18,9 @@ body {
     color: #FFF;
     height: 100vh;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .sidebar h2 {
@@ -27,6 +30,7 @@ body {
 
 .sidebar ul {
     list-style-type: none;
+    padding: 0;
 }
 
 .sidebar ul li {
@@ -36,23 +40,31 @@ body {
 .sidebar ul li a {
     color: #FFF;
     text-decoration: none;
-}
-
-.sidebar ul li a.active {
-    background-color: #3399FF;
+    display: block;
     padding: 10px;
     border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.sidebar ul li a:hover, .sidebar ul li a.active {
+    background-color: #3399FF;
 }
 
 .main-content {
     flex-grow: 1;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #FFF;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
 }
 
@@ -60,11 +72,13 @@ body {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    width: 300px;
 }
 
 .dashboard {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     margin-bottom: 20px;
 }
 
@@ -76,6 +90,7 @@ body {
     flex: 1;
     margin: 10px;
     text-align: center;
+    min-width: 250px;
 }
 
 .card.blue {
@@ -101,6 +116,7 @@ body {
 .charts {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .chart {
@@ -109,32 +125,32 @@ body {
     padding: 20px;
     flex: 1;
     margin: 10px;
+    min-width: 300px;
 }
-
-/* .projects {
-    background-color: #FFF;
-    border-radius: 10px;
-    padding: 20px;
-} */
 
 .progress {
     float: right;
     color: green;
 }
+
+.back-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
 .back-button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #1E90FF; /* Màu xanh biển */
+    background-color: #1E90FF;
     color: white;
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.3s ease;
     text-align: center;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
 }
 
 .back-button:hover {
-    background-color: #1C86EE; /* Màu xanh biển đậm hơn khi hover */
+    background-color: #1C86EE;
 }

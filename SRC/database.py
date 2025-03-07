@@ -1,119 +1,118 @@
-import os
-import mysql.connector
-import atexit
+import sqlite3
+from passlib.context import CryptContext
 
-sql_endpoint = os.getenv('SQL_ENDPOINT', '127.0.0.1')
-sql_user = os.getenv('SQL_USER', 'root')
-sql_password = os.getenv('SQL_PASSWORD', '12345678')
+# Băm mật khẩu với bcrypt
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-print(sql_endpoint)
-print(sql_user)
-print(sql_password)
+def get_db_connection():
+    """Kết nối đến cơ sở dữ liệu SQLite"""
+    conn = sqlite3.connect('user_data.db', timeout=10)
+    conn.row_factory = sqlite3.Row
+    return conn
 
-connection = None
-cursor = None
-
-def connect_to_database():
-    global connection, cursor
-    try:
-        connection = mysql.connector.connect(
-            host=sql_endpoint,
-            user=sql_user,
-            password=sql_password,
-        )
-        cursor = connection.cursor()
-        print("SQL connected successfully")
-    except mysql.connector.Error as e:
-        print("Error connecting to MySQL", e)
-
-def close_database_connection():
-    global connection
-    if connection:
-        connection.close()
-        print("SQL connection closed")
-
-def drop_phone_column():
-    try:
-        cursor.execute('ALTER TABLE person DROP COLUMN IF EXISTS phone;')
-        connection.commit()
-    except mysql.connector.Error as e:
-        print("Error while dropping phone column", e)
-
-def create_person_table():
-    try:
-        cursor.execute('CREATE DATABASE IF NOT EXISTS TaiKhoan')
-        connection.commit()
-
-        cursor.execute('USE TaiKhoan')
-
-        command = """
-        CREATE TABLE IF NOT EXISTS person (
-            username VARCHAR(255) NOT NULL,
-            email VARCHAR(255) NOT NULL,
-            password VARCHAR(255) NOT NULL,
-            PRIMARY KEY (username)
-        );
-        """
-        cursor.execute(command)
-        connection.commit()
+def create_tables():
+    """Tạo bảng users và events nếu chưa tồn tại"""
+    with get_db_connection() as conn:
+        cursor = conn.cursor()
         
-        if not check_login_sql('admin', '1'):
-            insert_new_person('admin', 'admin@example.com', '1')
-    except mysql.connector.Error as e:
-        print("Error while creating table", e)
+        # Tạo bảng users
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT UNIQUE NOT NULL,
+                email TEXT NOT NULL,
+                password TEXT NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+        
+        # Tạo bảng events
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS events (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
+                event_name TEXT NOT NULL,
+                event_date TEXT NOT NULL,
+                event_start TEXT NOT NULL,
+                event_end TEXT NOT NULL,
+                color TEXT DEFAULT 'blue',
+                completed BOOLEAN DEFAULT 0,
+                event_notes TEXT,
+                FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+            )
+        """)
+        
+        conn.commit()
 
-def insert_new_person(username: str, email: str, password: str):
+def get_password_hash(password: str) -> str:
+    """Băm mật khẩu"""
+    return pwd_context.hash(password)
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    """Xác minh mật khẩu"""
+    return pwd_context.verify(plain_password, hashed_password)
+
+def insert_user(username: str, email: str, password: str) -> bool:
+    """Thêm người dùng vào database"""
+    hashed_password = get_password_hash(password)
     try:
-        command = "INSERT INTO person (username, email, password) VALUES (%s, %s, %s);"
-        cursor.execute(command, (username, email, password))
-        connection.commit()
-        return [None]
-    except mysql.connector.Error as e:
-        print("Error while inserting into MySQL", e)
-        return [e]
-
-def check_login_sql(username: str, password: str):
-    try:
-        command = "SELECT password FROM person WHERE username = %s;"
-        cursor.execute(command, (username,))
-        result = cursor.fetchone()
-        if result:
-            stored_password = result[0]
-            return stored_password == password
-        return False
-    except mysql.connector.Error as e:
-        print("Error while querying MySQL", e)
-        return False
-
-atexit.register(close_database_connection)
-connect_to_database()
-create_person_table()
-
-if __name__ == "__main__":
-    if check_login_sql('admin', '1'):
-        print("Admin login successful")
-    else:
-        print("Admin login failed")
-
-
-def insert_study_plan(title, start_time, end_time):
-    # Implement the logic to insert a study plan into the database
-    # This is a placeholder implementation
-    try:
-        # Example: Insert into a hypothetical database
-        # db.execute("INSERT INTO study_plans (title, start_time, end_time) VALUES (?, ?, ?)", (title, start_time, end_time))
+        with get_db_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
+                           (username, email, hashed_password))
+            conn.commit()
         return True
-    except Exception as e:
-        print(f"Error inserting study plan: {e}")
+    except sqlite3.IntegrityError as e:
+        print(f"Lỗi khi thêm người dùng: {e}")
         return False
 
-def insert_gpa(subject, grade_10, grade_4, letter_grade, target_grade):
-    # Implement the logic to insert GPA into the database
-    # This is a placeholder implementation
+def get_user(username: str):
+    """Lấy thông tin người dùng từ database"""
+    with get_db_connection() as conn:
+        cursor = conn.cursor()
+        user = cursor.execute("SELECT * FROM users WHERE username = ?", (username,)).fetchone()
+    
+    return dict(user) if user else None  # ✅ Chuyển sqlite3.Row thành dictionary
+
+
+def insert_event(user_id: int, event_name: str, event_date: str, event_start: str, event_end: str, color: str, completed: bool, event_notes: str):
+    """Thêm sự kiện vào database"""
     try:
-        # Example: Insert into a hypothetical database
-        # db.execute("INSERT INTO gpa (subject, grade_10, grade_4, letter_grade, target_grade) VALUES (?, ?, ?, ?, ?)", (subject, grade_10, grade_4, letter_grade, target_grade))
-        return True
-    except Exception as e:
-        print(f"Error inserting GPA: {e}")
-        return False
+        with get_db_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("INSERT INTO events (user_id, event_name, event_date, event_start, event_end, color, completed, event_notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                           (user_id, event_name, event_date, event_start, event_end, color, completed, event_notes))
+            conn.commit()
+    except sqlite3.Error as e:
+        print(f"Lỗi khi thêm sự kiện: {e}")
+
+def get_events_by_user(user_id: int):
+    """Lấy tất cả sự kiện của người dùng"""
+    with get_db_connection() as conn:
+        cursor = conn.cursor()
+        events = cursor.execute("SELECT * FROM events WHERE user_id = ?", (user_id,)).fetchall()
+    return [dict(event) for event in events]
+
+def delete_event(event_id: int):
+    """Xóa sự kiện theo ID"""
+    try:
+        with get_db_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM events WHERE id = ?", (event_id,))
+            conn.commit()
+    except sqlite3.Error as e:
+        print(f"Lỗi khi xóa sự kiện: {e}")
+
+def update_event(event_id: int, event_name: str, event_date: str, event_start: str, event_end: str, color: str, completed: bool, event_notes: str):
+    """Cập nhật sự kiện theo ID"""
+    try:
+        with get_db_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                UPDATE events
+                SET event_name = ?, event_date = ?, event_start = ?, event_end = ?, color = ?, completed = ?, event_notes = ?
+                WHERE id = ?
+            """, (event_name, event_date, event_start, event_end, color, completed, event_notes, event_id))
+            conn.commit()
+    except sqlite3.Error as e:
+        print(f"Lỗi khi cập nhật sự kiện: {e}")

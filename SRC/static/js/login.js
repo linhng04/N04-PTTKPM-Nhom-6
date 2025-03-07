@@ -1,34 +1,27 @@
-let slideIndex = 0;
-const slides = document.querySelectorAll(".slide");
-const totalSlides = slides.length;
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("loginForm").addEventListener("submit", async function (event) {
+        event.preventDefault();
 
-function showSlides() {
-    slides.forEach((slide, index) => {
-        slide.style.opacity = "0";
-    });
+        const formData = new FormData(this);
 
-    slides[slideIndex].style.opacity = "1";
-    slideIndex = (slideIndex + 1) % totalSlides;
-}
-setInterval(showSlides, 5000);
+        try {
+            const response = await fetch('/login', {
+                method: 'POST',
+                body: formData
+            });
 
-document.getElementById("loginForm").addEventListener("submit", function(event) {
-    event.preventDefault(); 
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-    const role = document.getElementById("choose-your-role").value;
+            const data = await response.json();
 
-    if (username && password) {
-        if (role === "Admin") {
-            window.location.href = "/admin";  
-        } else if (role === "User") {
-            window.location.href = "/home"; 
-        } else {
-            alert("Please select a valid role.");
+            if (response.ok && data.status === "success") {
+                localStorage.setItem("access_token", data.access_token);
+                alert("Login successful! Redirecting to home...");
+                window.location.href = "/home";
+            } else {
+                alert(data.message || "Invalid login attempt.");
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert("An error occurred. Please try again later.");
         }
-    } else {
-        alert("Please enter valid login details.");
-    }
+    });
 });
-
-showSlides();

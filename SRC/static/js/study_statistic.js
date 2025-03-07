@@ -51,7 +51,7 @@ const completedTasksChart = new Chart(ctx3, {
         labels: ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov'],
         datasets: [{
             label: 'Điểm',
-            data: [3.12, 3.01, 3.35, 3.42, 3.30, 3.34, 3.25, 3.32],
+            data: [3.12, 3.01, 3.35, 3.42, 3.30, 3.34, 3.25, 3.31],
             backgroundColor: 'rgba(10, 11, 125, 0.2)',
             borderColor: '#6C757D',
             borderWidth: 2,

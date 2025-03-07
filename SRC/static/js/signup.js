@@ -14,7 +14,7 @@ function showSlides() {
 showSlides(); 
 setInterval(showSlides, 5000);
 
-document.getElementById("signUpForm").addEventListener("submit", function(event) {
+document.getElementById("signUpForm").addEventListener("submit", async function(event) {
     event.preventDefault();
 
     const username = document.getElementById("username").value;
@@ -40,35 +40,27 @@ document.getElementById("signUpForm").addEventListener("submit", function(event)
     }
 
     if (password !== confirmPassword) {
-        alert("Passwords do not match.");
+        alert("Passwords do not match!");
         return;
     }
 
-    const formData = new FormData();
-    formData.append("username", username);
-    formData.append("email", email);
-    formData.append("password", password);
+    const formData = new FormData(this);
 
-    fetch('/register', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (data.success) {
-            alert('Registration successful!');
-            window.location.href = '/';
+    try {
+        const response = await fetch('/register', {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await response.json();
+        if (data.status === "success") {
+            alert("Registration successful! Redirecting to login...");
+            window.location.href = "/";
         } else {
-            alert('Registration failed. Please try again.');
+            alert(data.message || "Registration failed. Please try again.");
         }
-    })
-    .catch(error => {
+    } catch (error) {
         console.error('Error:', error);
-        alert('An error occurred. Please try again later.');
-    });
+        alert("An error occurred. Please try again later.");
+    }
 });

@@ -1,26 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Notice</title>
-    <link rel="stylesheet" href="/static/css/notice.css">
+    <title>Thông Báo 📢</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Baloo 2', cursive;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #ff4757;
+            margin-bottom: 15px;
+        }
+
+        .notice {
+            background: #ffca28;
+            color: #333;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 10px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .notice p {
+            margin: 0;
+        }
+
+        .icon {
+            font-size: 20px;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .back-button:hover {
+            background: #2980b9;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Thông báo</h1>
+        <h1>📢 Thông Báo Mới Nhất</h1>
         <div id="notices">
-            <!-- Thông báo sẽ được hiển thị ở đây -->
-              16/11/2025  09:30:AM: Thêm kế hoạch: Kiểm tra cuối kỳ Kĩ thuật phần mềm
-                <div class="notice">
-                    <p>16/11/2025  11:00:AM: Hủy kế hoạch: Kiểm tra cuối kỳ Kĩ thuật phần mềm
-                </div>
-              16/11/2025  01:30:PM: Thêm kế hoạch: Trả sách cho thư viện</p>
-                <div class="notice">
-                    <p>16/11/2025  03:45:PM: Thêm kế hoạch: Họp nhóm nghiên cứu khoa học</p>
-                </div>
-                16/11/2025  05:15:PM: Hủy kế hoạch: Trả sách cho thư viện
+            <div class="notice">
+                <span class="icon">📅</span>
+                <p>16/11/2025 09:30 AM - Thêm kế hoạch: Kiểm tra cuối kỳ Kĩ thuật phần mềm</p>
+            </div>
+            <div class="notice">
+                <span class="icon">❌</span>
+                <p>16/11/2025 11:00 AM - Hủy kế hoạch: Kiểm tra cuối kỳ Kĩ thuật phần mềm</p>
+            </div>
+            <div class="notice">
+                <span class="icon">📚</span>
+                <p>16/11/2025 01:30 PM - Thêm kế hoạch: Trả sách cho thư viện</p>
+            </div>
+            <div class="notice">
+                <span class="icon">📝</span>
+                <p>16/11/2025 03:45 PM - Thêm kế hoạch: Họp nhóm nghiên cứu khoa học</p>
+            </div>
+            <div class="notice">
+                <span class="icon">🚫</span>
+                <p>16/11/2025 05:15 PM - Hủy kế hoạch: Trả sách cho thư viện</p>
+            </div>
         </div>
-        <a href="/home" class="back-button">Quay về trang chủ</a>
+        <a href="/home" class="back-button">🏠 Quay Về Trang Chủ</a>
     </div>
 </body>
 </html>

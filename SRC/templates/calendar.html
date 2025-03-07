@@ -1,1 +1,51 @@
- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch</title>
+    <link rel="stylesheet" href="/static/css/calendar.css?v=1">
+</head>
+
+<body>
+    <script src="/static/js/calendar.js?v=1"></script>
+    <h1>📅 Lập kế hoạch</h1>
+    <div class="container">
+        <div class="month-calendar" id="month-calendar"></div>
+        <div class="week-calendar">
+            <div class="calendar" id="calendar"></div>
+        </div>
+    </div>
+    <div class="overlay" id="overlay" onclick="closeEventPopup()"></div>
+    <div class="event-popup" id="event-popup">
+        <h2 id="event-popup-title">Thêm sự kiện</h2>
+        <input type="text" id="event-name" placeholder="Tên sự kiện" required />
+        <input type="date" id="event-date" />
+        <input type="time" id="event-start" placeholder="Giờ bắt đầu" />
+        <input type="time" id="event-end" placeholder="Giờ kết thúc" />
+       
+        
+        <div class="form-group">
+            <label for="color">Chọn màu:</label>
+            <div class="color-options">
+                <label>
+                    <input type="radio" name="color" value="blue" checked> Xanh
+                </label>
+                <label>
+                    <input type="radio" name="color" value="purple"> Tím
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="checkbox" id="completed" name="completed" class="small-checkbox">
+            <label for="completed">Đã hoàn thành</label>
+        </div>
+        <textarea id="event-notes" placeholder="Chú ý"></textarea>
+       
+        <button onclick="addNewEvent(event)">Hoàn thành</button>
+    </div>
+    <div>
+        <a href="/home" class="back-button">Quay về trang chủ</a>
+    </div>
+</body>
+</html>
