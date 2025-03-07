@@ -181,14 +181,13 @@
         }
 
         function calculateRemainingCredits() {
-            // Lấy giá trị từ các ô input
+     
             const totalCredits = parseFloat(document.getElementById("totalCredits").value) || 0;
             const completedCredits = parseFloat(document.getElementById("completedCredits").value) || 0;
 
-            // Tính toán số tín chỉ còn lại
             const remainingCredits = totalCredits - completedCredits;
 
-            // Cập nhật giá trị của ô "Số tín chỉ chưa hoàn thành"
+           
             document.getElementById("remainingCredits").value = remainingCredits >= 0 ? remainingCredits : 0;
         }
 
@@ -197,16 +196,13 @@
             let totalCredits = 0;
             let totalGradePoints = 0;
 
-            // Duyệt qua các môn học trong bảng để tính GPA
             for (let row of table.rows) {
                 let credits = parseFloat(row.cells[2].children[0].value) || 0;
                 let score10 = parseFloat(row.cells[3].children[0].value) || 0;
 
-                // Tính Điểm 4 từ Điểm 10
                 let score4 = (score10 * 0.4).toFixed(2);
                 row.cells[4].children[0].value = score4;
 
-                // Tính Điểm chữ từ Điểm 4
                 let grade = "";
                 if (score4 >= 3.6) grade = "A";
                 else if (score4 >= 3.0) grade = "B+";
@@ -218,12 +214,12 @@
 
                 row.cells[5].children[0].value = grade;
 
-                // Tính tổng số tín chỉ và tổng điểm
+    
                 totalCredits += credits;
                 totalGradePoints += (credits * score4);
             }
 
-            // Tính GPA
+          
             let gpa = (totalGradePoints / totalCredits).toFixed(2);
             document.getElementById("currentGPA").value = gpa >= 0 ? gpa : 0;
         }

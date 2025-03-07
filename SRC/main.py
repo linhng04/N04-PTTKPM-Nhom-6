@@ -10,15 +10,11 @@ from database import create_tables, insert_user, get_user, verify_password, inse
 create_tables()
 
 app = FastAPI()
-
-# JWT Config
 SECRET_KEY = "your_secret_key"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login")
-
-# CORS Middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -71,8 +67,6 @@ async def login_user(form_data: OAuth2PasswordRequestForm = Depends()):
     access_token = create_access_token(data={"sub": user["username"]}, expires_delta=timedelta(minutes=30))
     print("User data:", dict(user))
     return JSONResponse(content={"status": "success", "access_token": access_token, "user_id": user["id"]}, status_code=200)
-
-# API quản lý sự kiện (có xác thực JWT)
 @app.post("/api/events")
 async def add_event(
     user_id: int = Form(...),
@@ -95,7 +89,7 @@ async def add_event(
 def decode_access_token(token: str):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        return payload.get("sub")  # Lấy username từ token
+        return payload.get("sub") 
     except JWTError:
         return None
 
@@ -104,17 +98,12 @@ async def get_events(user_id: int, token: str = Depends(oauth2_scheme)):
     username = decode_access_token(token)
     if not username:
         raise HTTPException(status_code=401, detail="Invalid token")
-    
-    # Kiểm tra user_id hợp lệ không
     user = get_user(username)
     if not user or user["id"] != user_id:
         raise HTTPException(status_code=403, detail="Unauthorized access")
 
     events = get_events_by_user(user_id)
     return JSONResponse(content=events, status_code=200)
-
-
-
 @app.put("/api/events/update/{event_id}")
 async def edit_event(
     event_id: int,

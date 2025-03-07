@@ -1,4 +1,4 @@
-/* Tổng quan giao diện */
+
 body {
   font-family: 'Roboto', sans-serif;
   background: linear-gradient(135deg, #1e3c72, #2a5298);
@@ -12,7 +12,6 @@ body {
   margin: 0;
 }
 
-/* Đầu trang */
 header {
   text-align: center;
   margin-bottom: 40px;
@@ -30,7 +29,6 @@ p {
   color: #555555;
 }
 
-/* Container chính */
 .container {
   display: flex;
   justify-content: space-between;
@@ -43,7 +41,6 @@ p {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
-/* Cột bên trái */
 .left-column {
   width: 45%;
   padding: 20px;
@@ -53,7 +50,6 @@ p {
   color: white;
 }
 
-/* Cột bên phải */
 .right-column {
   width: 45%;
   padding: 20px;
@@ -78,7 +74,6 @@ p {
   background: rgba(255, 255, 255, 0.3);
 }
 
-/* Link trong các box */
 .box-link {
   display: block;
   padding: 12px;
@@ -95,7 +90,6 @@ p {
   background: #ff4747;
 }
 
-/* Nút quay về trang chủ */
 .back-button {
   display: inline-block;
   margin-top: 30px;
@@ -113,7 +107,6 @@ p {
   transform: scale(1.05);
 }
 
-/* Căn giữa nút quay về */
 .back-button-container {
   display: flex;
   justify-content: center;

@@ -1,7 +1,6 @@
 import sqlite3
 from passlib.context import CryptContext
 
-# Băm mật khẩu với bcrypt
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def get_db_connection():
@@ -15,7 +14,6 @@ def create_tables():
     with get_db_connection() as conn:
         cursor = conn.cursor()
         
-        # Tạo bảng users
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -26,7 +24,6 @@ def create_tables():
             )
         """)
         
-        # Tạo bảng events
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS events (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -72,7 +69,7 @@ def get_user(username: str):
         cursor = conn.cursor()
         user = cursor.execute("SELECT * FROM users WHERE username = ?", (username,)).fetchone()
     
-    return dict(user) if user else None  # ✅ Chuyển sqlite3.Row thành dictionary
+    return dict(user) if user else None
 
 
 def insert_event(user_id: int, event_name: str, event_date: str, event_start: str, event_end: str, color: str, completed: bool, event_notes: str):

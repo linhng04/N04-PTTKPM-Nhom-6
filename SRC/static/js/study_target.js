@@ -5,19 +5,17 @@ function calculateGrade(element) {
     const final = parseFloat(row.querySelector('.final').value) || 0;
     const credits = parseFloat(row.querySelector('.credits').value) || 0;
 
-    // Lấy tỷ lệ từ ô input
     const weightInput = row.querySelector('.weight').value;
-    const weights = weightInput.split(':').map(w => parseFloat(w.trim()) / 100); // Chia tỷ lệ cho 100
+    const weights = weightInput.split(':').map(w => parseFloat(w.trim()) / 100); 
 
-    // Tính điểm trung bình hệ 10
     const average10 = (attendance * (weights[0] || 0) + midterm * (weights[1] || 0) + final * (weights[2] || 0)).toFixed(2);
     row.querySelector('.avg-10').textContent = average10;
 
-    // Tính toán điểm trung bình hệ 4
+
     const average4 = (average10 / 10 * 4).toFixed(2);
     row.querySelector('.avg-4').textContent = average4;
 
-    // Tính điểm chữ
+
     let grade;
     if (average10 >= 9 && average10 <= 10) grade = 'A+';
     else if (average10 >= 8.5 && average10 < 9) grade = 'A';

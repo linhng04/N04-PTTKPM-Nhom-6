@@ -9,7 +9,6 @@ function createMonthCalendar() {
   const monthCalendar = document.getElementById("month-calendar");
   monthCalendar.innerHTML = "";
 
-  // Tạo tiêu đề tháng
   const header = document.createElement("div");
   header.className = "header";
 
@@ -17,7 +16,7 @@ function createMonthCalendar() {
   monthTitle.className = "month-title";
   monthTitle.textContent = `${getMonthName(currentMonth)} ${currentYear}`;
 
-  // Danh sách chọn tháng
+
   const monthList = document.createElement("div");
   monthList.className = "month-list";
 
@@ -39,7 +38,7 @@ function createMonthCalendar() {
   monthTitle.appendChild(monthList);
   header.appendChild(monthTitle);
 
-  // Nút chuyển tháng
+ 
   const navContainer = document.createElement("div");
 
   const prevButton = document.createElement("button");
@@ -57,12 +56,12 @@ function createMonthCalendar() {
   header.appendChild(navContainer);
   monthCalendar.appendChild(header);
 
-  // Tiêu đề ngày trong tuần (Bắt đầu từ Thứ Hai)
+
   const days = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
   const calendarGrid = document.createElement("div");
   calendarGrid.className = "calendar";
 
-  // Hàng tiêu đề (thứ)
+
   days.forEach((day) => {
       const dayHeader = document.createElement("div");
       dayHeader.className = "day-header";
@@ -70,19 +69,19 @@ function createMonthCalendar() {
       calendarGrid.appendChild(dayHeader);
   });
 
-  // Lấy thông tin tháng hiện tại
+ 
   const date = new Date(currentYear, currentMonth, 1);
-  const firstDayIndex = (date.getDay() + 6) % 7; // Định nghĩa lại để thứ Hai là ngày đầu tiên
+  const firstDayIndex = (date.getDay() + 6) % 7; 
   const lastDay = new Date(currentYear, currentMonth + 1, 0).getDate();
 
-  // **CỐ ĐỊNH LỖI LỆCH CỘT** - Thêm ô trống vào đầu hàng đầu tiên
+  
   for (let i = 0; i < firstDayIndex; i++) {
       const emptyDiv = document.createElement("div");
       emptyDiv.className = "empty-day";
       calendarGrid.appendChild(emptyDiv);
   }
 
-  // Thêm ngày vào lịch
+
   for (let day = 1; day <= lastDay; day++) {
       const dayDiv = document.createElement("div");
       dayDiv.className = "day";
@@ -90,7 +89,7 @@ function createMonthCalendar() {
 
       const currentDate = new Date(currentYear, currentMonth, day);
 
-      // Đánh dấu ngày hôm nay
+
       if (currentDate.toDateString() === today.toDateString()) {
           dayDiv.classList.add("today");
       }
@@ -182,21 +181,17 @@ function createWeekCalendar(startDate) {
   const days = ["THỨ 2", "THỨ 3", "THỨ 4", "THỨ 5", "THỨ 6", "THỨ 7", "CHỦ NHẬT"];
   const hours = Array.from({ length: 24 }, (_, i) => `${i.toString().padStart(2, "0")}:00`);
 
-  // Xác định ngày đầu tuần (Bắt đầu từ Thứ Hai)
   const firstDayOfWeek = new Date(startDate);
   firstDayOfWeek.setDate(startDate.getDate() - ((startDate.getDay() + 6) % 7));
 
-  // Hàng tiêu đề - Hiển thị thứ và ngày
   const headerRow = document.createElement("div");
   headerRow.className = "calendar-row header-row";
   calendar.appendChild(headerRow);
 
-  // Ô trống đầu tiên (cột giờ)
   const emptyHeader = document.createElement("div");
   emptyHeader.className = "calendar-header time-column";
   headerRow.appendChild(emptyHeader);
 
-  // Tạo cột ngày trong tuần
   days.forEach((day, index) => {
       const dayHeader = document.createElement("div");
       dayHeader.className = "calendar-header";
@@ -207,18 +202,16 @@ function createWeekCalendar(startDate) {
       headerRow.appendChild(dayHeader);
   });
 
-  // Tạo lưới theo giờ
+
   hours.forEach((hour) => {
       const row = document.createElement("div");
       row.className = "calendar-row";
 
-      // Cột thời gian
       const timeCell = document.createElement("div");
       timeCell.className = "calendar-time";
       timeCell.textContent = hour;
       row.appendChild(timeCell);
 
-      // Cột cho từng ngày
       days.forEach((_, index) => {
           const cell = document.createElement("div");
           cell.className = "calendar-cell";
@@ -231,11 +224,9 @@ function createWeekCalendar(startDate) {
       calendar.appendChild(row);
   });
 
-  // Hiển thị sự kiện
   renderEvents(firstDayOfWeek);
 }
 
-// Thêm sự kiện nhanh khi click vào ô trống
 function addQuickEvent(e, startDate) {
   const cell = e.target;
   const hour = cell.getAttribute("data-hour");
@@ -247,7 +238,7 @@ function addQuickEvent(e, startDate) {
 }
 
 function renderEvents(startDate) {
-  document.querySelectorAll(".calendar-cell").forEach(cell => cell.innerHTML = ""); // Xóa nội dung cũ
+  document.querySelectorAll(".calendar-cell").forEach(cell => cell.innerHTML = "");
 
   events.forEach(event => {
       const eventDate = new Date(event.date);
@@ -264,7 +255,7 @@ function renderEvents(startDate) {
               eventEl.className = "event";
               eventEl.textContent = `${event.name}`;
               eventEl.style.backgroundColor = event.color === "blue" ? "#66B2FF" : "#D1A6E0";
-              eventEl.style.height = `${duration * 60}px`; // Độ dài dựa theo thời gian
+              eventEl.style.height = `${duration * 60}px`;
               eventEl.onclick = () => showEditEventPopup(event);
               eventEl.draggable = true;
               eventEl.ondragstart = (e) => dragStart(e, event);
@@ -286,11 +277,9 @@ function showEventDetails(event) {
   detailsPopup.style.display = "block";
 }
 
-// Đóng popup chi tiết
 function closeEventDetails() {
   document.getElementById("event-details-popup").style.display = "none";
 }
-// Kéo thả sự kiện để thay đổi thời gian
 function dragStart(e, event) {
   e.dataTransfer.setData("text/plain", JSON.stringify(event));
 }
@@ -307,7 +296,6 @@ function dropEvent(e, event) {
   renderEvents(new Date(event.date));
 }
 
-// Hiển thị popup thêm sự kiện
 function showEventPopup(targetDate, hour = "08:00") {
   const overlay = document.getElementById("overlay");
   const popup = document.getElementById("event-popup");
@@ -319,14 +307,12 @@ function showEventPopup(targetDate, hour = "08:00") {
   document.getElementById("event-end").value = (parseInt(hour.split(":")[0]) + 1) + ":00";
 }
 
-// Đóng popup
 function closeEventPopup() {
   document.getElementById("overlay").style.display = "none";
   document.getElementById("event-popup").style.display = "none";
   editingEvent = null;
 }
 
-// Thêm mới sự kiện
 function addNewEvent(event) {
   event.preventDefault();
   const name = document.getElementById("event-name").value;
