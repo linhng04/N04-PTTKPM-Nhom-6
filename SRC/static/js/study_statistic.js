@@ -28,7 +28,7 @@ const dailySalesChart = new Chart(ctx2, {
         labels: ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov'],
         datasets: [{
             label: 'Điểm',
-            data: [7.7, 7.3, 8.9, 9.1, 8.0, 8.1, 7.8, 8.2],
+            data: [7.7, 7.3, 8.9, 9.1, 8.0, 8.1, 7.8, 8.19],
             backgroundColor: 'rgba(0, 123, 255, 0.2)',
             borderColor: '#007BFF',
             borderWidth: 2,
